@@ -1,5 +1,12 @@
 # THE MOVIE BAKERY BACKEND
 
+## SOME STUFF TO ADD
+
+- [ ] Postgres
+- [ ] Gin
+- [ ] Gorm
+- [ ] JWT
+
 ## SOME REQUIREMENTS
 
 ### Recuperação de senha
