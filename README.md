@@ -7,6 +7,13 @@
 - [ ] Gorm
 - [ ] JWT
 
+## SOME STUFF TODO
+
+- [ ] CREATE USER
+- [ ] EDIT USER (?)
+- [ ] SHOW USER
+- [ ] DELETE USER
+
 ## SOME REQUIREMENTS
 
 ### Recuperação de senha
