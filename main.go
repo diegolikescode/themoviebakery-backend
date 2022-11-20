@@ -4,6 +4,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	"themoviebakery/config"
+	createUser "themoviebakery/controllers/user-controllers/create"
 )
 
 type user struct {
@@ -15,16 +18,10 @@ type user struct {
 }
 
 func getUsers(c *gin.Context) {
-	var users = []user{
-		{UserID: "aueauhe", Email: "aseuas", DisplayName: "UAEHUAEHUA", Password: "ahursfdhgw", ConfirmPassword: "HURSDFHUGSDGUH"},
-		{UserID: "aueauhe", Email: "aseuas", DisplayName: "UAEHUAEHUA", Password: "ahursfdhgw", ConfirmPassword: "HURSDFHUGSDGUH"},
-		{UserID: "aueauhe", Email: "aseuas", DisplayName: "UAEHUAEHUA", Password: "fgf", ConfirmPassword: "jhjjhjh"},
-		{UserID: "aueauhe", Email: "aseuas", DisplayName: "UAEHUAEHUA", Password: "ahursfdhgw", ConfirmPassword: "sadasasas"},
-	}
+	collection := config.ConnectMongo()
+	createUser.CreateUser(collection)
 
-	// append(users, )
-
-	c.IndentedJSON(http.StatusOK, users)
+	c.IndentedJSON(http.StatusOK, collection)
 }
 
 func main() {
