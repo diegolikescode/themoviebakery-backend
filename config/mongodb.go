@@ -2,6 +2,8 @@ package config
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 
@@ -10,9 +12,15 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// mongodb+srv://night_driver:<password>@themoviebakery.p2jppue.mongodb.net/?retryWrites=true&w=majority
+type DisconnectMongo func()
 
-func ConnectMongo() mongo.Collection {
+type mongoConn struct {
+	collection *mongo.Collection
+	client     *mongo.Client
+	disconnect DisconnectMongo
+}
+
+func ConnectMongo() *mongoConn {
 	if err := godotenv.Load(); err != nil {
 		log.Println("no .env file found")
 	}
@@ -26,25 +34,30 @@ func ConnectMongo() mongo.Collection {
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
 	if err != nil {
 		panic(err)
-
 	}
+	collection := client.Database("themoviebakery").Collection("users")
 
-	defer func() {
+	newMongoConnection := new(mongoConn)
+
+	newMongoConnection.collection = collection
+	newMongoConnection.client = client
+	newMongoConnection.disconnect = func() {
 		if err := client.Disconnect(context.TODO()); err != nil {
 			panic(err)
 		}
-	}()
+	}
 
-	collection := client.Database("themoviebakery").Collection("users")
-
-	// res, err := collection.InsertOne(context.TODO(), bson.M{"hello": "bebie boe"})
-
-	// if err != nil {
-	// 	panic(err)
+	// newMongoConnection := mongoConn{
+	// 	collection,
+	// 	client,
+	// 	func() {
+	// 		if err := client.Disconnect(context.TODO()); err != nil {
+	// 			panic(err)
+	// 		}
+	// 	},
 	// }
+	res2B, _ := json.Marshal(newMongoConnection)
+	fmt.Println(string(res2B))
 
-	// id := res.InsertedID
-	// fmt.Println("MY NEW ID", id)
-
-	return *collection
+	return newMongoConnection
 }

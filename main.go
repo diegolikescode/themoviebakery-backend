@@ -1,32 +1,31 @@
 package main
 
 import (
-	"net/http"
+	"log"
 
+	helmet "github.com/danielkov/gin-helmet"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
-	"themoviebakery/config"
-	createUser "themoviebakery/controllers/user-controllers/create"
+	"themoviebakery/routes"
 )
 
-type user struct {
-	UserID          string `json:"userId"`
-	Email           string `json:"email"`
-	DisplayName     string `json:"displaName"`
-	Password        string `json:"password"`
-	ConfirmPassword string `json:"confirmPassword"`
-}
-
-func getUsers(c *gin.Context) {
-	collection := config.ConnectMongo()
-	createUser.CreateUser(collection)
-
-	c.IndentedJSON(http.StatusOK, collection)
-}
-
 func main() {
-	router := gin.Default()
-	router.GET("/users", getUsers)
+	router := SetupRouter()
+	log.Fatal(router.Run("localhost:8080"))
+}
 
-	router.Run("localhost:3030")
+func SetupRouter() *gin.Engine {
+	router := gin.Default()
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:  []string{"*"},
+		AllowMethods:  []string{"*"},
+		AllowHeaders:  []string{"*"},
+		AllowWildcard: true,
+	}))
+	router.Use(helmet.Default())
+
+	routes.InitUserRoutes(router)
+
+	return router
 }
