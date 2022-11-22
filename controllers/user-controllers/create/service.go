@@ -1,23 +1,23 @@
 package createUser
 
 import (
-	"fmt"
+	"context"
 	"net/http"
 	config "themoviebakery/config"
 
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 func CreateUser(ginContext *gin.Context) {
-	var mongoNewConnection = config.ConnectMongo()
-	fmt.Println(mongoNewConnection)
+	mongoNewConnection := config.ConnectMongo()
 
-	// res, err := mongoNewConnection.collection.InsertOne(context.TODO(), bson.M{"hello": "bebie"})
-	// if err != nil {
-	// 	panic(err)
-	// }
+	res, err := mongoNewConnection.Collection.InsertOne(context.TODO(), bson.M{"yes": "we can"})
+	if err != nil {
+		panic(err)
+	}
 
-	ginContext.IndentedJSON(http.StatusOK, mongoNewConnection)
+	defer mongoNewConnection.Disconnect()
 
-	// return id
+	ginContext.IndentedJSON(http.StatusOK, res)
 }

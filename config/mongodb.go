@@ -2,7 +2,6 @@ package config
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -14,13 +13,13 @@ import (
 
 type DisconnectMongo func()
 
-type mongoConn struct {
-	collection *mongo.Collection
-	client     *mongo.Client
-	disconnect DisconnectMongo
+type MongoConn struct {
+	Collection mongo.Collection
+	Client     mongo.Client
+	Disconnect DisconnectMongo
 }
 
-func ConnectMongo() *mongoConn {
+func ConnectMongo() MongoConn {
 	if err := godotenv.Load(); err != nil {
 		log.Println("no .env file found")
 	}
@@ -37,27 +36,16 @@ func ConnectMongo() *mongoConn {
 	}
 	collection := client.Database("themoviebakery").Collection("users")
 
-	newMongoConnection := new(mongoConn)
-
-	newMongoConnection.collection = collection
-	newMongoConnection.client = client
-	newMongoConnection.disconnect = func() {
-		if err := client.Disconnect(context.TODO()); err != nil {
-			panic(err)
-		}
+	newConnection := MongoConn{
+		Collection: *collection,
+		Client:     *client,
+		Disconnect: func() {
+			if err := client.Disconnect(context.TODO()); err != nil {
+				panic(err)
+			}
+		},
 	}
+	fmt.Printf("%+v\n", newConnection)
 
-	// newMongoConnection := mongoConn{
-	// 	collection,
-	// 	client,
-	// 	func() {
-	// 		if err := client.Disconnect(context.TODO()); err != nil {
-	// 			panic(err)
-	// 		}
-	// 	},
-	// }
-	res2B, _ := json.Marshal(newMongoConnection)
-	fmt.Println(string(res2B))
-
-	return newMongoConnection
+	return newConnection
 }
