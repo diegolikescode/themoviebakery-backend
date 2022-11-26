@@ -3,27 +3,23 @@ package getUser
 import (
 	"context"
 	"log"
-	"net/http"
 	"themoviebakery/config"
+	createUser "themoviebakery/controllers/user-controllers/create"
 
-	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func GetUserByEmail(ginContext *gin.Context) {
-	queryParams := ginContext.Request.URL.Query()
+func GetUserByEmail(email string, mongoConnection *config.MongoConn) (*createUser.InputCreateUser, string) {
+	statusCode := make(chan string, 1)
 
-	mongoNewConnection := config.ConnectMongo()
-	defer mongoNewConnection.Disconnect()
-
-	var result bson.D
-	err := mongoNewConnection.Collection.FindOne(context.TODO(), bson.M{"email": queryParams["email"][0]}).Decode(&result)
+	var user createUser.InputCreateUser
+	err := mongoConnection.Collection.FindOne(context.TODO(), bson.M{"email": email}).Decode(&user)
 	if err != nil {
 		log.Println("error trying to get the user by it's email =>", err)
-		ginContext.IndentedJSON(http.StatusInternalServerError, bson.M{"message": "probably wrong params, is expected: userId and email"})
-		return
+		statusCode <- "USER_NOT_FOUND_BY_EMAIL_404"
+	} else {
+		statusCode <- "nil"
 	}
 
-	ginContext.IndentedJSON(http.StatusOK, result)
-
+	return &user, <-statusCode
 }

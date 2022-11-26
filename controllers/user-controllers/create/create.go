@@ -4,9 +4,9 @@ import (
 	"context"
 	"net/http"
 	config "themoviebakery/config"
+	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 )
 
 func CreateUser(ginContext *gin.Context) {
@@ -15,8 +15,8 @@ func CreateUser(ginContext *gin.Context) {
 	var userBody InputCreateUser
 	ginContext.ShouldBindJSON(&userBody)
 
-	newId := uuid.New()
-	userBody.UserID = newId.String()
+	userBody.CreatedAt = time.Now()
+	userBody.UpdatedAt = time.Now()
 
 	res, err := mongoNewConnection.Collection.InsertOne(context.TODO(), userBody)
 	if err != nil {
