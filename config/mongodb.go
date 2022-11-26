@@ -2,7 +2,6 @@ package config
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"os"
 
@@ -45,7 +44,6 @@ func ConnectMongo() MongoConn {
 			}
 		},
 	}
-	fmt.Printf("%+v\n", newConnection)
 
 	return newConnection
 }

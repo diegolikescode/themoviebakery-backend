@@ -6,13 +6,19 @@ import (
 	config "themoviebakery/config"
 
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson"
+	"github.com/google/uuid"
 )
 
 func CreateUser(ginContext *gin.Context) {
 	mongoNewConnection := config.ConnectMongo()
 
-	res, err := mongoNewConnection.Collection.InsertOne(context.TODO(), bson.M{"yes": "we can"})
+	var userBody InputCreateUser
+	ginContext.ShouldBindJSON(&userBody)
+
+	newId := uuid.New()
+	userBody.UserID = newId.String()
+
+	res, err := mongoNewConnection.Collection.InsertOne(context.TODO(), userBody)
 	if err != nil {
 		panic(err)
 	}
