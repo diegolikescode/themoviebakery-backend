@@ -2,16 +2,15 @@
 
 ## SOME STUFF TO ADD
 
-- [ ] Postgres
-- [ ] Gin
-- [ ] Gorm
+- [x] mongodb
+- [ ] gin
 - [ ] JWT
 
 ## SOME STUFF TODO
 
-- [ ] CREATE USER
+- [x] CREATE USER
+- [x] SHOW USER
 - [ ] EDIT USER (?)
-- [ ] SHOW USER
 - [ ] DELETE USER
 
 ## SOME REQUIREMENTS
