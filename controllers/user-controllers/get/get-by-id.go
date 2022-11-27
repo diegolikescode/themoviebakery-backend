@@ -3,32 +3,29 @@ package getUser
 import (
 	"context"
 	"log"
-	"net/http"
 	"themoviebakery/config"
+	createUser "themoviebakery/controllers/user-controllers/create"
 
-	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func GetUserById(ginContext *gin.Context) {
-	queryParams := ginContext.Request.URL.Query()
+func GetUserById(id string, mongoConnection *config.MongoConn) (*createUser.InputCreateUser, string) {
+	statusCode := make(chan string, 1)
 
-	mongoNewConnection := config.ConnectMongo()
-	defer mongoNewConnection.Disconnect()
-
-	userObjectId, objectIdErr := primitive.ObjectIDFromHex(queryParams["userId"][0])
+	userObjectId, objectIdErr := primitive.ObjectIDFromHex(id)
 	if objectIdErr != nil {
 		log.Println("Trying to parse user's object id (string) to mongo's ObjectId, Invalid ID =>", objectIdErr)
 	}
-
-	var result bson.D
-	err := mongoNewConnection.Collection.FindOne(context.TODO(), bson.M{"_id": userObjectId}).Decode(&result)
+	var user createUser.InputCreateUser
+	err := mongoConnection.Collection.FindOne(context.TODO(), bson.M{"_id": userObjectId}).Decode(&user)
 	if err != nil {
 		log.Println("Trying to parse user's object id (string) to mongo's ObjectId, Invalid ID =>", err)
-		ginContext.IndentedJSON(http.StatusInternalServerError, bson.M{"message": "problem trying to get user's profile using ObjectId"})
-		return
+		statusCode <- "ERROR_FINDING_USER_BY_ID_404"
+		return nil, <-statusCode
+	} else {
+		statusCode <- "nil"
 	}
 
-	ginContext.IndentedJSON(http.StatusOK, &result)
+	return &user, <-statusCode
 }
