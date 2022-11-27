@@ -12,7 +12,7 @@ import (
 func CreateUser(ginContext *gin.Context) {
 	mongoNewConnection := config.ConnectMongo()
 
-	var userBody InputCreateUser
+	var userBody UserType
 	ginContext.ShouldBindJSON(&userBody)
 
 	userBody.CreatedAt = time.Now()

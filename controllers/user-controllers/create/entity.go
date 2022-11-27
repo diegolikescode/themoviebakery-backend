@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-type InputCreateUser struct {
+type UserType struct {
 	Id              primitive.ObjectID `json:"_id" bson:"_id,omitempty"`
 	Email           string             `json:"email" validate:"required"`
 	DisplayName     string             `json:"displayName" validate:"required"`
