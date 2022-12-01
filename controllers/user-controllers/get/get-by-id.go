@@ -10,14 +10,14 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func GetUserById(id string, mongoConnection *config.MongoConn) (*createUser.UserType, string) {
+func GetUserById(id string, mongoConnection *config.MongoConn) (*createUser.UserTypeFull, string) {
 	statusCode := make(chan string, 1)
 
 	userObjectId, objectIdErr := primitive.ObjectIDFromHex(id)
 	if objectIdErr != nil {
 		log.Println("Trying to parse user's object id (string) to mongo's ObjectId, Invalid ID =>", objectIdErr)
 	}
-	var user createUser.UserType
+	var user createUser.UserTypeFull
 	err := mongoConnection.Collection.FindOne(context.TODO(), bson.M{"_id": userObjectId}).Decode(&user)
 	if err != nil {
 		log.Println("Trying to parse user's object id (string) to mongo's ObjectId, Invalid ID =>", err)

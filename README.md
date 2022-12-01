@@ -10,7 +10,7 @@
 
 - [x] CREATE USER
 - [x] SHOW USER
-- [ ] EDIT USER (?)
+- [x] EDIT USER (?)
 - [ ] DELETE USER
 
 ## SOME REQUIREMENTS

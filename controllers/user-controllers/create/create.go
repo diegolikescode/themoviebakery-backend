@@ -2,6 +2,7 @@ package createUser
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	config "themoviebakery/config"
 	"time"
@@ -12,11 +13,12 @@ import (
 func CreateUser(ginContext *gin.Context) {
 	mongoNewConnection := config.ConnectMongo()
 
-	var userBody UserType
+	var userBody UserTypeInsert
 	ginContext.ShouldBindJSON(&userBody)
-
+	fmt.Println("XAMA", userBody)
 	userBody.CreatedAt = time.Now()
 	userBody.UpdatedAt = time.Now()
+	fmt.Println("XAMA DE NOVO", userBody)
 
 	res, err := mongoNewConnection.Collection.InsertOne(context.TODO(), userBody)
 	if err != nil {

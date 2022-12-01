@@ -14,7 +14,7 @@ import (
 func UpdateUser(ginContext *gin.Context) {
 	mongoNewConnection := config.ConnectMongo()
 
-	var userBody createUser.UserType
+	var userBody createUser.UserTypeFull
 	ginContext.ShouldBindJSON(&userBody)
 
 	userBody.UpdatedAt = time.Now()
