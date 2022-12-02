@@ -3,6 +3,7 @@ package routes
 import (
 	createUser "themoviebakery/controllers/user-controllers/create"
 	updateUser "themoviebakery/controllers/user-controllers/update"
+	deleteUserHandler "themoviebakery/handlers/user-handlers/delete"
 	getUserHandler "themoviebakery/handlers/user-handlers/get"
 
 	"github.com/gin-gonic/gin"
@@ -14,5 +15,5 @@ func InitUserRoutes(router *gin.Engine) {
 	groupRoute.GET("/user-by-email", getUserHandler.HandlerGetUserByEmail)
 	groupRoute.GET("/user-by-id", getUserHandler.HandlerGetUserById)
 	groupRoute.PUT("/user", updateUser.UpdateUser)
-	// groupRoute.DELETE("/user", createUser.DeleteUser)
+	groupRoute.DELETE("/user", deleteUserHandler.DeleteUserById)
 }
