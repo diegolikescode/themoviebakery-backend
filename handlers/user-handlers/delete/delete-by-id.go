@@ -29,6 +29,7 @@ func DeleteUserById(ginContext *gin.Context) {
 	if err == nil {
 		if res.DeletedCount == 0 {
 			ginContext.IndentedJSON(http.StatusNotFound, bson.M{"message": "user with id" + queryParams["userId"][0] + " wasn't founded"})
+			return
 		}
 		ginContext.IndentedJSON(http.StatusOK, res)
 	} else {
