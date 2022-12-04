@@ -4,15 +4,15 @@ import (
 	"context"
 	"log"
 	"themoviebakery/config"
-	createUser "themoviebakery/controllers/user-controllers/create"
+	models "themoviebakery/models"
 
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func GetUserByEmail(email string, mongoConnection *config.MongoConn) (*createUser.UserTypeFull, string) {
+func GetUserByEmail(email string, mongoConnection *config.MongoConn) (*models.UserTypeFull, string) {
 	statusCode := make(chan string, 1)
 
-	var user createUser.UserTypeFull
+	var user models.UserTypeFull
 	err := mongoConnection.Collection.FindOne(context.TODO(), bson.M{"email": email}).Decode(&user)
 	if err != nil {
 		log.Println("error trying to get the user by it's email =>", err)

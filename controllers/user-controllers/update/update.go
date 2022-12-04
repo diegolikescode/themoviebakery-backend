@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 	config "themoviebakery/config"
-	createUser "themoviebakery/controllers/user-controllers/create"
+	models "themoviebakery/models"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -14,7 +14,7 @@ import (
 func UpdateUser(ginContext *gin.Context) {
 	mongoNewConnection := config.ConnectMongo()
 
-	var userBody createUser.UserTypeFull
+	var userBody models.UserTypeFull
 	ginContext.ShouldBindJSON(&userBody)
 
 	userBody.UpdatedAt = time.Now()
