@@ -17,8 +17,7 @@
 
 ### USER AUTHENTIFICATION
 
-
-## SOME REQUIREMENTS
+## SOME REQUIREMENTS (esboço não oficial)
 
 ### Recuperação de senha
 
@@ -57,10 +56,6 @@
   - Para acessar a listagem de filmes o usuário deverá estar logado;
   - A barra de pesquisa deverá utilizar um algoritmo para relacionar os itens entre si;
 
-### Feedback do usuário IMPLÍCITO
+## ARCHTECTURE
 
-  **Requisitos Funcionais**
-
-  **Requisitos Não Funcionais**
-
-  **Regras de Negócio**
+![arch](assets/overall-arch.png)
