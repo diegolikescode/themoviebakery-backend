@@ -10,7 +10,7 @@ import (
 )
 
 func InitUserRoutes(router *gin.Engine) {
-	groupRoute := router.Group("/api/v1") // .Use(middleware.Auth())
+	groupRoute := router.Group("/api/v1")
 	groupRoute.POST("/user", createUser.CreateUser)
 	groupRoute.GET("/user-by-email", getUserHandler.HandlerGetUserByEmail)
 	groupRoute.GET("/user-by-id", getUserHandler.HandlerGetUserById)

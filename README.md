@@ -15,8 +15,6 @@
 - [x] EDIT USER (?)
 - [x] DELETE USER
 
-### USER AUTHENTIFICATION
-
 ## SOME REQUIREMENTS (esboço não oficial)
 
 ### Recuperação de senha
