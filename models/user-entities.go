@@ -25,3 +25,9 @@ type UserTypeFullIdPrimitive struct {
 	CreatedAt       time.Time          `json:"created_at"`
 	UpdatedAt       time.Time          `json:"updated_at"`
 }
+
+type UserEssentialData struct {
+	Id          primitive.ObjectID `json:"_id" bson:"_id,omitempty"`
+	Email       string             `json:"email" validate:"required"`
+	DisplayName string             `json:"displayName" validate:"required"`
+}

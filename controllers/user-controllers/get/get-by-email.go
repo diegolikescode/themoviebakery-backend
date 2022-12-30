@@ -9,10 +9,10 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func GetUserByEmail(email string, mongoConnection *config.MongoConn) (*models.UserTypeFullIdPrimitive, string) {
+func GetUserByEmail(email string, mongoConnection *config.MongoConn) (*models.UserEssentialData, string) {
 	statusCode := make(chan string, 1)
 
-	var user models.UserTypeFullIdPrimitive
+	var user models.UserEssentialData
 	err := mongoConnection.Collection.FindOne(context.TODO(), bson.M{"email": email}).Decode(&user)
 	if err != nil {
 		log.Println("error trying to get the user by it's email =>", err)
