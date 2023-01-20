@@ -10,5 +10,7 @@ import (
 func InitRatingRoutes(router *gin.Engine) {
 	groupRoute := router.Group("/api/v1")
 	groupRoute.POST("/rating", createRating.CreateRating)
-	groupRoute.GET("/rating", getRatingHandler.GetRatingHandler)
+	groupRoute.GET("/rating-by-id", getRatingHandler.GetRatingHandler)
+	groupRoute.GET("/rating-by-user", getRatingHandler.GetRatingsByUser)
+	// groupRoute.GET("/rating", getRatingHandler.GetRatingsByUserAndMovie)
 }
