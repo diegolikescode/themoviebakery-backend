@@ -26,6 +26,7 @@ func SetupRouter() *gin.Engine {
 	router.Use(helmet.Default())
 
 	routes.InitUserRoutes(router)
+	routes.InitRatingRoutes(router)
 
 	return router
 }
