@@ -15,8 +15,8 @@ func GetRatingUserMovie(userId string, movieId string, mongoConnection *config.M
 	var rating models.RatingTypeFullIdPrimitive
 	err := mongoConnection.Collection.FindOne(context.TODO(), bson.M{"userid": userId, "movieid": movieId}).Decode(&rating)
 	if err != nil {
-		log.Println("Error trying to get rating by userid and movie =>", err)
-		statusCode <- "ERROR_FINDING_RATING_BY_USER_404"
+		log.Println("tried to get rating by userid and movie =>", err)
+		statusCode <- "FINDING_RATING_BY_USER_404"
 		return nil, <-statusCode
 	} else {
 		statusCode <- "nil"
