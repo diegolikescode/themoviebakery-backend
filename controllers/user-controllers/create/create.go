@@ -10,11 +10,12 @@ import (
 	models "themoviebakery/models"
 
 	"github.com/gin-gonic/gin"
+	"github.com/teris-io/shortid"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
 func CreateUser(ginContext *gin.Context) {
-	mongoNewConnection := config.ConnectMongo()
+	mongoNewConnection := config.ConnectMongo("users")
 
 	var userBody models.UserTypeInsert
 	ginContext.ShouldBindJSON(&userBody)
@@ -25,6 +26,19 @@ func CreateUser(ginContext *gin.Context) {
 		return
 	}
 
+	sid, err := shortid.New(1, shortid.DefaultABC, 2342)
+	if err != nil {
+		panic(err)
+	}
+
+	shortid.SetDefault(sid)
+
+	shortId, err := sid.Generate()
+	if err != nil {
+		panic(err)
+	}
+
+	userBody.UserId = shortId
 	userBody.CreatedAt = time.Now()
 	userBody.UpdatedAt = time.Now()
 

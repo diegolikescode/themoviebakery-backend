@@ -3,11 +3,12 @@ package models
 import (
 	"time"
 
+	"github.com/teris-io/shortid"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type UserTypeInsert struct {
-	// Id              primitive.ObjectID `json:"_id" bson:"_id,omitempty"`
+	UserId          string    `json:"userId"`
 	Email           string    `json:"email" validate:"required"`
 	DisplayName     string    `json:"displayName" validate:"required"`
 	Password        string    `json:"password" validate:"required"`
@@ -18,6 +19,7 @@ type UserTypeInsert struct {
 
 type UserTypeFullIdPrimitive struct {
 	Id              primitive.ObjectID `json:"_id" bson:"_id,omitempty"`
+	UserId          shortid.Shortid    `json:"userId"`
 	Email           string             `json:"email" validate:"required"`
 	DisplayName     string             `json:"displayName" validate:"required"`
 	Password        string             `json:"password" validate:"required"`
@@ -28,6 +30,7 @@ type UserTypeFullIdPrimitive struct {
 
 type UserEssentialData struct {
 	Id          primitive.ObjectID `json:"_id" bson:"_id,omitempty"`
+	UserId      shortid.Shortid    `json:"userId"`
 	Email       string             `json:"email" validate:"required"`
 	DisplayName string             `json:"displayName" validate:"required"`
 }

@@ -18,7 +18,7 @@ type MongoConn struct {
 	Disconnect DisconnectMongo
 }
 
-func ConnectMongo() MongoConn {
+func ConnectMongo(collectionName string) MongoConn {
 	if err := godotenv.Load(); err != nil {
 		log.Println("no .env file found")
 	}
@@ -33,7 +33,7 @@ func ConnectMongo() MongoConn {
 	if err != nil {
 		panic(err)
 	}
-	collection := client.Database("themoviebakery").Collection("users")
+	collection := client.Database("themoviebakery").Collection(collectionName)
 
 	newConnection := MongoConn{
 		Collection: *collection,

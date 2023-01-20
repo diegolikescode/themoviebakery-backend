@@ -14,7 +14,7 @@ import (
 )
 
 func UpdateUser(ginContext *gin.Context) {
-	mongoNewConnection := config.ConnectMongo()
+	mongoNewConnection := config.ConnectMongo("users")
 	var userBodyPrimitive models.UserTypeFullIdPrimitive
 	ginContext.ShouldBindJSON(&userBodyPrimitive)
 

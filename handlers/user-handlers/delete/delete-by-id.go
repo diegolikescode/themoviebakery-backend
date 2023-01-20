@@ -21,7 +21,7 @@ func DeleteUserById(ginContext *gin.Context) {
 		return
 	}
 
-	mongoNewConnection := config.ConnectMongo()
+	mongoNewConnection := config.ConnectMongo("users")
 	defer mongoNewConnection.Disconnect()
 
 	res, err := mongoNewConnection.Collection.DeleteOne(context.TODO(), bson.M{"_id": userObjectId})

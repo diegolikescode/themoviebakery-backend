@@ -11,7 +11,7 @@ import (
 func HandlerGetUserById(ginContext *gin.Context) {
 	queryParams := ginContext.Request.URL.Query()
 
-	mongoNewConnection := config.ConnectMongo()
+	mongoNewConnection := config.ConnectMongo("users")
 	defer mongoNewConnection.Disconnect()
 	user, statusCode := getUser.GetUserById(queryParams["userId"][0], &mongoNewConnection)
 
