@@ -12,5 +12,5 @@ func InitRatingRoutes(router *gin.Engine) {
 	groupRoute.POST("/rating", createRating.CreateRating)
 	groupRoute.GET("/rating-by-id", getRatingHandler.GetRatingHandler)
 	groupRoute.GET("/rating-by-user", getRatingHandler.GetRatingsByUser)
-	// groupRoute.GET("/rating", getRatingHandler.GetRatingsByUserAndMovie)
+	groupRoute.GET("/rating-user-movie", getRatingHandler.GetRatingUserMovie)
 }
