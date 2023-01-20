@@ -16,21 +16,21 @@ func UpdateUser(oldRating models.RatingTypeFullIdPrimitive, updatedRating models
 	var upMongoRating models.RatingTypeUpdate
 
 	upMongoRating.UpdatedAt = time.Now()
-	upMongoRating.RatingId = updatedRating.RatingId
+	upMongoRating.RatingId = oldRating.RatingId
 	upMongoRating.RatingValue = updatedRating.RatingValue
-	upMongoRating.MovieId = updatedRating.MovieId
-	upMongoRating.UserId = updatedRating.UserId
+	upMongoRating.MovieId = oldRating.MovieId
+	upMongoRating.UserId = oldRating.UserId
 
 	update := bson.D{{"$set", upMongoRating}}
-
 	res, err := mongoConnection.Collection.UpdateOne(context.TODO(), bson.M{"ratingid": oldRating.RatingId}, update)
+
 	if err != nil {
 		statusCode <- "ERROR_TRYING_TO_UPDATE_RATING"
 		return nil, <-statusCode
 	} else {
 		statusCode <- "nil"
-		defer mongoConnection.Disconnect()
 	}
 
+	defer mongoConnection.Disconnect()
 	return res, <-statusCode
 }

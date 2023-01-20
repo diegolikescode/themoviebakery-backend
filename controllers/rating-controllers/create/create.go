@@ -20,18 +20,14 @@ func CreateRating(ginContext *gin.Context) {
 	ginContext.ShouldBindJSON(&ratingBody)
 
 	rating, statusCode := getRating.GetRatingUserMovie(ratingBody.UserId, ratingBody.MovieId, &mongoNewConnection)
-	if statusCode != "nil" {
-		res, statusCode := updateRating.UpdateUser(*rating, ratingBody, &mongoNewConnection)
+	if statusCode == "nil" {
+		newRating, anoterStatusCode := updateRating.UpdateUser(*rating, ratingBody, &mongoNewConnection)
 
-		if statusCode == "nil" {
-			ginContext.IndentedJSON(http.StatusOK, res)
-
-			defer mongoNewConnection.Disconnect()
+		if anoterStatusCode == "nil" {
+			ginContext.IndentedJSON(http.StatusOK, newRating)
 			return
 		} else {
-			ginContext.IndentedJSON(http.StatusInternalServerError, res)
-
-			defer mongoNewConnection.Disconnect()
+			ginContext.IndentedJSON(http.StatusInternalServerError, newRating)
 			return
 		}
 	}
@@ -56,8 +52,6 @@ func CreateRating(ginContext *gin.Context) {
 	if err != nil {
 		panic(err)
 	}
-
-	defer mongoNewConnection.Disconnect()
-
+	// defer mongoNewConnection.Disconnect()
 	ginContext.IndentedJSON(http.StatusOK, res)
 }
