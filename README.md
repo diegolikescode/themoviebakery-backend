@@ -20,5 +20,5 @@
 }
 ```
 
-- [ ] se o usuário nunca opinou nesse filme, cria uma nova opinião
-- [ ] se o usuário já tiver dado uma opinião nesse filme, a opinião atualiza
+- [x] se o usuário nunca opinou nesse filme, cria uma nova opinião
+- [x] se o usuário já tiver dado uma opinião nesse filme, a opinião atualiza
