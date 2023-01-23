@@ -12,6 +12,7 @@ import (
 func InitUserRoutes(router *gin.Engine) {
 	groupRoute := router.Group("/api/v1")
 	groupRoute.POST("/user", createUser.CreateUser)
+	groupRoute.POST("/user-google", createUser.CreateAndLogUserGoogle)
 	groupRoute.GET("/user-by-email", getUserHandler.HandlerGetUserByEmail)
 	groupRoute.GET("/user-by-id", getUserHandler.HandlerGetUserById)
 	groupRoute.PUT("/user", updateUser.UpdateUser)

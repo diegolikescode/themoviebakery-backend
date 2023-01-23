@@ -8,29 +8,25 @@ import (
 )
 
 type UserTypeInsert struct {
-	UserId          string    `json:"userId"`
-	Email           string    `json:"email" validate:"required"`
-	DisplayName     string    `json:"displayName" validate:"required"`
-	Password        string    `json:"password" validate:"required"`
-	ConfirmPassword string    `json:"confirmPassword" validate:"required"`
-	CreatedAt       time.Time `json:"created_at"`
-	UpdatedAt       time.Time `json:"updated_at"`
+	UserId      string    `json:"userId"`
+	Email       string    `json:"email" validate:"required"`
+	DisplayName string    `json:"displayName" validate:"required"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
 }
 
 type UserTypeFullIdPrimitive struct {
-	Id              primitive.ObjectID `json:"_id" bson:"_id,omitempty"`
-	UserId          shortid.Shortid    `json:"userId"`
-	Email           string             `json:"email" validate:"required"`
-	DisplayName     string             `json:"displayName" validate:"required"`
-	Password        string             `json:"password" validate:"required"`
-	ConfirmPassword string             `json:"confirmPassword" validate:"required"`
-	CreatedAt       time.Time          `json:"created_at"`
-	UpdatedAt       time.Time          `json:"updated_at"`
-}
-
-type UserEssentialData struct {
 	Id          primitive.ObjectID `json:"_id" bson:"_id,omitempty"`
 	UserId      shortid.Shortid    `json:"userId"`
 	Email       string             `json:"email" validate:"required"`
 	DisplayName string             `json:"displayName" validate:"required"`
+	CreatedAt   time.Time          `json:"created_at"`
+	UpdatedAt   time.Time          `json:"updated_at"`
+}
+
+type UserEssentialData struct {
+	Id          primitive.ObjectID `json:"_id" bson:"_id,omitempty"`
+	UserId      string             `json:"userId"`
+	Email       string             `json:"email"`
+	DisplayName string             `json:"displayName"`
 }
