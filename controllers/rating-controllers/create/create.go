@@ -19,6 +19,16 @@ func CreateRating(ginContext *gin.Context) {
 	var ratingBody models.RatingTypeFullIdPrimitive
 	ginContext.ShouldBindJSON(&ratingBody)
 
+	// PRINT JSON
+	// var buffer bytes.Buffer
+	// enc := json.NewEncoder(&buffer)
+	// enc.SetIndent("", "  ")
+	// if err := enc.Encode(ratingBody); err != nil {
+	// 	panic("encode string err!")
+	// }
+	// fmt.Println(buffer.String())
+	// END PRINT JSON
+
 	rating, statusCode := getRating.GetRatingUserMovie(ratingBody.UserId, ratingBody.MovieId, &mongoNewConnection)
 	if statusCode == "nil" {
 		newRating, anoterStatusCode := updateRating.UpdateUser(*rating, ratingBody, &mongoNewConnection)
