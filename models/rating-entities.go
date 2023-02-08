@@ -6,6 +6,12 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+type RatingMachineLearningData struct {
+	UserId      string  `json:"userId"`
+	MovieId     string  `json:"movieId"`
+	RatingValue float32 `json:"ratingValue"`
+}
+
 type RatingTypeInsert struct {
 	RatingId    string    `json:"ratingId"`
 	UserId      string    `json:"userId"`
