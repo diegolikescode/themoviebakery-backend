@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 
-import express, { Router } from 'express'
+import express from 'express'
+import cors from 'cors'
 import router from './routes/index.routes'
 import { DataSource } from 'typeorm'
 
@@ -24,6 +25,7 @@ appDataSource
   .initialize()
   .then(() => {
     app.use(express.json())
+    app.use(cors())
     app.use('/api/v1', router)
 
     app.listen(8080, () => 'running')

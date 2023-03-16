@@ -24,7 +24,7 @@ export default class RatingController {
         { userId, movieId },
         { ...rating, ratingValue }
       )
-      return res.json(rating).status(200)
+      return res.status(200).json(rating)
     }
 
     const newRating = new Rating()
@@ -35,14 +35,14 @@ export default class RatingController {
 
     await ratingRepository.insert(newRating)
 
-    res.json(newRating).status(201)
+    res.status(201).json(newRating)
   }
 
   allRatingsAllUsers = async (_: Request, res: Response) => {
     const ratingRepository = appDataSource.getRepository(Rating) // passar por construtor depois
     const allRatings = await ratingRepository.find()
 
-    res.json(allRatings).status(200)
+    res.status(200).json(allRatings)
   }
 
   findByUser = async (req: Request, res: Response) => {
@@ -51,6 +51,6 @@ export default class RatingController {
     const ratingRepository = appDataSource.getRepository(Rating) // passar por construtor depois
     const allRatings = await ratingRepository.find({ where: { userId } })
 
-    res.json(allRatings).status(200)
+    res.status(200).json(allRatings)
   }
 }

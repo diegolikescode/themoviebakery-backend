@@ -13,9 +13,14 @@ export default class UserController {
     const userRepository = appDataSource.getRepository(User) // passar por construtor depois
     const { email, displayName } = req.body
 
+    if (!email || !displayName)
+      return res
+        .json({ message: 'you need to send email and displayName' })
+        .status(400)
+
     const userExist = await userRepository.findOneBy({ email })
     if (userExist) {
-      return res.json({ message: 'user already exists' }).status(409)
+      return res.status(409).json({ message: 'user already exists' })
     }
     const newUser = new User()
     newUser.userId = shortUUID.generate()
@@ -24,12 +29,7 @@ export default class UserController {
 
     await userRepository.insert(newUser)
 
-    res.json(newUser).status(201)
-  }
-
-  // need it????? lets see frontend's response
-  createGoogle = (req: Request, res: Response) => {
-    res.json({ yet: 'to implement' }).status(200)
+    res.status(201).json(newUser)
   }
 
   getByEmail = async (req: Request, res: Response) => {
@@ -38,23 +38,23 @@ export default class UserController {
 
     const user = await userRepository.findOneBy({ email })
     if (!user) {
-      return res.json({ message: 'user not found' }).status(404)
+      return res.status(404).json({ message: 'user not found' })
     }
 
-    return res.json(user).status(200)
+    return res.status(200).json(user)
   }
 
   getById = async (req: Request, res: Response) => {
     if (!req.query.userId)
-      return res.json({ message: 'you need to passa userId' }).status(400)
+      return res.status(400).json({ message: 'you need to passa userId' })
     const userRepository = appDataSource.getRepository(User) // passar por construtor depois
     const { userId }: FindUser = req.query
 
     const user = await userRepository.findOneBy({ userId })
     if (!user) {
-      return res.json({ message: 'user not found' }).status(404)
+      return res.status(404).json({ message: 'user not found' })
     }
 
-    return res.json(user).status(200)
+    return res.status(200).json(user)
   }
 }
