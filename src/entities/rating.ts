@@ -4,6 +4,7 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  Double,
 } from 'typeorm'
 
 @Entity()
@@ -17,7 +18,7 @@ export default class Ratings {
   @Column()
   movieId: string
 
-  @Column()
+  @Column({ type: 'float4' })
   ratingValue: number
 
   @CreateDateColumn({
