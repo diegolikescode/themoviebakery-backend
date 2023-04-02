@@ -1,19 +1,18 @@
 import {
   Entity,
   Column,
-  PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  Double,
+  PrimaryGeneratedColumn,
 } from 'typeorm'
 
 @Entity()
 export default class Ratings {
-  @PrimaryColumn()
-  ratingId: string
+  @PrimaryGeneratedColumn('increment')
+  public ratingId: number
 
   @Column()
-  userId: string
+  userId: number
 
   @Column()
   movieId: string

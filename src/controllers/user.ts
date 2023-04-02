@@ -1,11 +1,10 @@
 import { Request, Response } from 'express'
-import shortUUID from 'short-uuid'
 import User from '../entities/user'
 import { appDataSource } from '../server'
 
 type FindUser = {
   email?: string
-  userId?: string
+  userId?: number
 }
 
 export default class UserController {
@@ -23,7 +22,6 @@ export default class UserController {
       return res.status(409).json({ message: 'user already exists' })
     }
     const newUser = new User()
-    newUser.userId = shortUUID.generate()
     newUser.email = email
     newUser.displayName = displayName
 

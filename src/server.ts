@@ -12,7 +12,7 @@ const app = express()
 
 export const appDataSource = new DataSource({
   type: 'postgres',
-  host: 'localhost',
+  host: 'localhost', // change this
   port: 5432,
   username: 'admin',
   password: 'admin',
@@ -28,6 +28,6 @@ appDataSource
     app.use(cors())
     app.use('/api/v1', router)
 
-    app.listen(8080, () => 'running')
+    app.listen(8080, () => console.log('running in 8080'))
   })
-  .catch(() => console.log('error in the datasource'))
+  .catch(() => console.log('was not able to connect to postgreSQL'))

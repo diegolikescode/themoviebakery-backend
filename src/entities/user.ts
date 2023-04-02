@@ -1,21 +1,21 @@
 import {
   Entity,
   Column,
-  PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm'
 
 @Entity()
 export default class Users {
-  @PrimaryColumn()
-  userId: string
+  @PrimaryGeneratedColumn('increment')
+  public userId: number
 
   @Column({ unique: true })
-  email: string
+  public email: string
 
   @Column()
-  displayName: string
+  public displayName: string
 
   @CreateDateColumn({
     type: 'timestamp',
