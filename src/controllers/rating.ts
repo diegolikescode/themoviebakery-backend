@@ -1,16 +1,15 @@
 import { Request, Response } from 'express'
-import shortUUID from 'short-uuid'
 import Rating from '../entities/rating'
 import { appDataSource } from '../server'
 
 type CreateRating = {
-  userId: string
+  userId: number
   movieId: string
   ratingValue: number
 }
 
 type FindRating = {
-  userId?: string
+  userId?: number
   movieId?: string
 }
 
@@ -28,7 +27,6 @@ export default class RatingController {
     }
 
     const newRating = new Rating()
-    newRating.ratingId = shortUUID.generate()
     newRating.movieId = movieId
     newRating.userId = userId
     newRating.ratingValue = ratingValue
