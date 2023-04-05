@@ -12,11 +12,11 @@ const app = express()
 
 export const appDataSource = new DataSource({
   type: 'postgres',
-  host: 'localhost', // change this
+  host: 'ls-b9321f739756e12f0d5637fc356b634e638b7821.cqybf2hflrg3.us-east-1.rds.amazonaws.com',
   port: 5432,
-  username: 'admin',
-  password: 'admin',
-  database: 'TheMovieBakery',
+  username: 'dbmasteruser',
+  password: ']=5WYWBh?nhA4L=0av*Ms<))6=L6Fkzr',
+  database: 'my-postgres',
   entities: [user, rating],
   synchronize: true,
 })
