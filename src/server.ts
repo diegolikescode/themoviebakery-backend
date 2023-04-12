@@ -21,11 +21,16 @@ export const appDataSource = new DataSource({
   synchronize: true,
 })
 
+const corsOptions = {
+  origin: 'https://themoviebakery.com',
+  optionsSuccessStatus: 200, // legacy stuff (cors' docs)
+}
+
 appDataSource
   .initialize()
   .then(() => {
     app.use(express.json())
-    app.use(cors())
+    app.use(cors(corsOptions))
     app.use('/api/v1', router)
 
     app.listen(8080, () => console.log('running in 8080'))
