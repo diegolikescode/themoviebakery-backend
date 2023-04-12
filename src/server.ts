@@ -16,7 +16,7 @@ export const appDataSource = new DataSource({
   port: 5432,
   username: 'dbmasteruser',
   password: ']=5WYWBh?nhA4L=0av*Ms<))6=L6Fkzr',
-  database: 'my-postgres',
+  database: 'postgres',
   entities: [user, rating],
   synchronize: true,
 })
