@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 
 import express from 'express'
-import cors from 'cors'
+import cors, { CorsOptions } from 'cors'
 import router from './routes/index.routes'
 import { DataSource } from 'typeorm'
 
@@ -21,8 +21,10 @@ export const appDataSource = new DataSource({
   synchronize: true,
 })
 
-const corsOptions = {
+const corsOptions: CorsOptions = {
+  credentials: false,
   origin: 'https://themoviebakery.com',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   optionsSuccessStatus: 200, // legacy stuff (cors' docs)
 }
 
