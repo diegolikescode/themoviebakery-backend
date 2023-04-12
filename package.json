@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
-    "startit": "build && node dist/server.js"
+    "startit": "yarn build && node dist/server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
