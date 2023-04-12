@@ -23,7 +23,7 @@ export const appDataSource = new DataSource({
 
 const corsOptions: CorsOptions = {
   credentials: false,
-  origin: 'https://themoviebakery.com',
+  origin: '*themoviebakery.com*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: [
     'X-CSRF-Token',
