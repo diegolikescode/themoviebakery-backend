@@ -1,2 +1,8 @@
-dale:
-	yarn build && node dist/server.js
+build:
+	yarn && yarn build
+
+full: build
+	node dist/server.js
+
+full-forever: build
+	forever start -c "node dist/server.js" .

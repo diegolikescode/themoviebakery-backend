@@ -36,7 +36,7 @@ export default class UserController {
 
     const user = await userRepository.findOneBy({ email })
     if (!user) {
-      return res.status(404).json({ message: 'user not found' })
+      return res.status(204).json({ message: 'user not found' })
     }
 
     return res.status(200).json(user)
@@ -50,7 +50,7 @@ export default class UserController {
 
     const user = await userRepository.findOneBy({ userId })
     if (!user) {
-      return res.status(404).json({ message: 'user not found' })
+      return res.status(204).json({ message: 'user not found' })
     }
 
     return res.status(200).json(user)

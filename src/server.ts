@@ -21,6 +21,17 @@ export const appDataSource = new DataSource({
   synchronize: true,
 })
 
+// export const appDataSource = new DataSource({
+//   type: 'postgres',
+//   host: 'localhost',
+//   port: 5432,
+//   username: 'postgres',
+//   password: 'mysecretpassword',
+//   database: 'postgres',
+//   entities: [user, rating],
+//   synchronize: true,
+// })
+
 const corsOptions: CorsOptions = {
   credentials: false,
   origin: '*themoviebakery.com*',
